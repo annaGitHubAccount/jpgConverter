@@ -1,4 +1,4 @@
-package de.anna.service;
+package de.anna.imageConverter.service;
 
 import java.io.IOException;
 

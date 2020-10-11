@@ -1,6 +1,6 @@
-package de.anna.service.impl;
+package de.anna.imageConverter.service.impl;
 
-import de.anna.service.JpgConverter;
+import de.anna.imageConverter.service.JpgConverter;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

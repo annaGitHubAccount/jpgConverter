@@ -1,7 +1,9 @@
-package de.anna.thread;
+package de.anna.imageConverter.thread;
 
-import de.anna.factory.JpgConverterFactory;
-import de.anna.service.JpgConverter;
+import de.anna.imageConverter.config.ParameterDto;
+import de.anna.imageConverter.factory.JpgConverterFactory;
+import de.anna.imageConverter.service.JpgConverter;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -11,15 +13,16 @@ import java.util.List;
 public class CompressThread extends Thread {
 
     private static final int SIZE_500_KB = 500 * 1024;
-    List<File> fileList;
-    File inputImagePath;
-    File outputPathAsFile;
+    private List<File> fileList;
+    private File inputImagePath;
+    private File outputPathAsFile;
+    private ParameterDto parameterDto;
 
-    public CompressThread(List<File> sublistOfFile, File aInputImagePath, File aOutputPathAsFile) {
+    public CompressThread(List<File> sublistOfFile, File aInputImagePath, File aOutputPathAsFile, ParameterDto aParameterDto) {
         fileList = sublistOfFile;
         inputImagePath = aInputImagePath;
         outputPathAsFile = aOutputPathAsFile;
-
+        parameterDto = aParameterDto;
     }
 
     @Override
@@ -30,15 +33,16 @@ public class CompressThread extends Thread {
 
         for (File file : fileList) {
 
-            if (!file.isDirectory() && isJpgFile(file)) {
+            if (!file.isDirectory() && isImageFile(file)) {
 
                 try {
                     BufferedImage inputImage = ImageIO.read(file);
 
-                    double percent = 0.3;
+                    double percent;
+                    percent = parameterDto.getImageCompressionLarge();
 
                     if (file.length() < SIZE_500_KB) {
-                        percent = 0.5;
+                        percent = parameterDto.getImageCompressionSmall();
                     }
 
                     int scaledWidth = (int) (inputImage.getWidth() * percent);
@@ -55,7 +59,8 @@ public class CompressThread extends Thread {
         }
     }
 
-    private static boolean isJpgFile(File file) {
-        return file.getName().endsWith(".PNG") || file.getName().endsWith(".png");
+    private static boolean isImageFile(File file) {
+        return ((file.getName().endsWith(".PNG") || file.getName().endsWith(".png"))
+                || (file.getName().endsWith(".JPG") || file.getName().endsWith(".jpg")));
     }
 }

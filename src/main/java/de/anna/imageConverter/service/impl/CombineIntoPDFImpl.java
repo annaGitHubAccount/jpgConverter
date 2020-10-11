@@ -1,6 +1,6 @@
-package de.anna.service.impl;
+package de.anna.imageConverter.service.impl;
 
-import de.anna.service.CombineIntoPDF;
+import de.anna.imageConverter.service.CombineIntoPDF;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;

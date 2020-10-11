@@ -1,6 +1,7 @@
-package de.anna.thread;
+package de.anna.imageConverter.thread;
 
-import de.anna.main.MainJpg;
+import de.anna.imageConverter.Application;
+import de.anna.imageConverter.Main;
 
 import java.io.File;
 
@@ -18,7 +19,7 @@ public class ProgressThread extends Thread {
 
         while (true) {
 
-            File outputPathAsFile = new File(MainJpg.OUTPUT_PATH);
+            File outputPathAsFile = Application.OUTPUT_ORDER;
             File[] outputFiles = outputPathAsFile.listFiles();
             int numberOfOutputFiles = outputFiles.length;
 
